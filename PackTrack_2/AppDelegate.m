@@ -21,6 +21,7 @@
         splitViewController.delegate = (id)navigationController.topViewController;
     }
     return YES;
+    
 }
 							
 - (void)applicationWillResignActive:(UIApplication *)application
