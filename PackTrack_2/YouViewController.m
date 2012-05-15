@@ -3,15 +3,6 @@
 #import "YouViewController.h"
 
 @implementation YouViewController
-@synthesize nameLabel;
-@synthesize originLabel;
-@synthesize serviceLabel;
-@synthesize destinationLabel;
-@synthesize etaLabel;
-@synthesize originHeader;
-@synthesize serviceHeader;
-@synthesize destinationHeader;
-@synthesize etaHeader;
 @synthesize youTableView, packages, enrouteCount, sentCount, receivedCount;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -60,25 +51,6 @@
     
     self.packages = [[NSMutableArray alloc] initWithObjects:cb2Lamp, speakers, nil];
     
-    
-    ///////////////////////////////////////////////////////////////////// Fonts
-    UIFont* myFont = [UIFont fontWithName:@"AkzidenzLight" size:20];
-    nameLabel.font = myFont;
-    originLabel.font = myFont;
-    serviceLabel.font = myFont;
-    destinationLabel.font = myFont;
-    etaLabel.font = myFont;
-    
-    UIFont *headFont = [UIFont fontWithName:@"Akzidenz" size:20];
-    originHeader.font = headFont;
-    originHeader.text =@"ORIGIN";
-    serviceHeader.font = headFont;
-    serviceHeader.text =@"SERVICE";
-    destinationHeader.font = headFont;
-    destinationHeader.text = @"DESTINATION";
-    etaHeader.font = headFont;
-    etaHeader.text = @"E.T.A";
-    
     ///////////////////////////////////////////////////////////////////// Mini Stats
     
     for (int i=0; i<packages.count; i++) {
@@ -101,17 +73,62 @@
     
     
 }
--(UITableViewCell*) tableView:(UITableView *)tableview cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    return 1;
+}
+
+- (NSInteger)youTableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    
+    return packages.count;
+}
+
+-(UITableViewCell*) youTableView:(UITableView *)tableview cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UIFont* myFont = [UIFont fontWithName:@"AkzidenzLight" size:20];
+
     NSString* cellIdentifier = @"packageCell";
     UITableViewCell *cell = [tableview dequeueReusableCellWithIdentifier:cellIdentifier];
     Package* currentPackage = [packages objectAtIndex:indexPath.row];
     
+    UILabel* nameLabel = (UILabel*)[cell viewWithTag:1];
+    nameLabel.font = myFont;
     nameLabel.text = currentPackage.name;
+    
+    UILabel * originLabel = (UILabel*) [cell viewWithTag:2];
+    originLabel.font = myFont;
     originLabel.text = currentPackage.origin;
-    destinationLabel.text = currentPackage.destination;
+    
+    UILabel *serviceLabel = (UILabel*) [cell viewWithTag:3];
+    serviceLabel.font = myFont;
     serviceLabel.text = currentPackage.service;
+    
+    UILabel *destinationLabel = (UILabel*) [cell viewWithTag:4];
+    destinationLabel.font = myFont;
+    destinationLabel.text = currentPackage.destination;
+    
+    UILabel *etaLabel = (UILabel*) [cell viewWithTag:5];
+    etaLabel.font = myFont;
     etaLabel.text = currentPackage.eta;
+    
+    UIFont *headFont = [UIFont fontWithName:@"Akzidenz" size:20];
+    UILabel *originHeader = (UILabel*) [cell viewWithTag:6];
+    originHeader.font = headFont;
+    originHeader.text = @"ORIGIN";
+    
+    UILabel *serviceHeader = (UILabel*) [cell viewWithTag:7];
+    serviceHeader.font = headFont;
+    serviceHeader.text = @"SERVICE";
+    
+    UILabel *destinationHeader = (UILabel*) [cell viewWithTag:8];
+    destinationHeader.font = headFont;
+    destinationHeader.text = @"DESTINATION";
+    
+    UILabel *etaHeader = (UILabel*) [cell viewWithTag:9];
+    etaHeader.font = headFont;
+    etaHeader.text = @"E.T.A.";
+
     return cell;
 
 
@@ -121,15 +138,6 @@
 {
     [self setYouTableView:nil];
     [self setYouTableView:nil];
-    [self setNameLabel:nil];
-    [self setOriginLabel:nil];
-    [self setServiceLabel:nil];
-    [self setDestinationLabel:nil];
-    [self setEtaLabel:nil];
-    [self setOriginHeader:nil];
-    [self setServiceHeader:nil];
-    [self setDestinationHeader:nil];
-    [self setEtaHeader:nil];
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
